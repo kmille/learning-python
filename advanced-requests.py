@@ -53,16 +53,6 @@ def log_all():
     session.get("/ip")
 
 
-# pip install requests_mock
-def test_mock_request(requests_mock):
-    requests_mock.get("https://httpbin.org/anything", json={'ip': '8.8.8.8'},
-                      status_code=201, headers={'X-Server': 'php'})
-    resp = requests.get("https://httpbin.org/anything")
-    assert resp.json()['ip'] == '8.8.8.8'
-    assert resp.status_code == 201
-    assert 'X-Server' in resp.headers
-    assert resp.headers['X-Server'] == 'php'
-
 
 if __name__ == '__main__':
     #retry()
