@@ -143,3 +143,64 @@ def test_get_json(monkeypatch):
     # app.get_json, which contains requests.get, uses the monkeypatch
     result = requests.get("https://fakeurl").json()
     assert result["mock_key"] == "mock_response"
+
+
+class TestRiseupVPN:
+    """pytest pytest_tests.py -k TestRiseupVPN -v -s"""
+
+    def setup_method(self):
+        print("setup method")
+
+    def teardown_method(self):
+        print("teardown method")
+
+    def setup_class(self):
+        print("setup class")
+
+    def teardown_class(self):
+        print("teardown class")
+
+    def test_cache_api_ca_cert(self, tmp_path, monkeypatch):
+        assert 2 == 2
+
+    def test_cache_api_ca_cert2(self, tmp_path, monkeypatch):
+        assert 1 == 1
+
+
+def do_exit():
+    import sys
+    sys.exit(42)
+
+
+def test_exit():
+    with pytest.raises(SystemExit) as se:
+        do_exit()
+        assert se.value.code == 42
+
+
+def change_var():
+    a = 4
+    return a
+
+
+def test_change_var(monkeypatch):
+    """https://docs.pytest.org/en/7.1.x/how-to/monkeypatch.html"""
+    monkeypatch.setattr(change_var, "a", 42, raising=True)
+    a = change_var
+    assert a == 42
+
+
+def log():
+    import logging
+    # INFO is not default!
+    logging.basicConfig(level=logging.INFO)
+    logging.info("this is my info")
+    logging.debug("this is my debug stuff")
+
+
+def test_log(caplog):
+    import logging
+    caplog.set_level(logging.INFO)
+    log()
+    assert "this is my info" in caplog.text
+    assert "this is my deubg stuff" not in caplog.text
