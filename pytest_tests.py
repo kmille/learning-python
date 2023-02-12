@@ -203,4 +203,4 @@ def test_log(caplog):
     caplog.set_level(logging.INFO)
     log()
     assert "this is my info" in caplog.text
-    assert "this is my deubg stuff" not in caplog.text
+    assert "this is my debug stuff" not in caplog.text
