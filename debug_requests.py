@@ -59,3 +59,10 @@ header: Connection: keep-alive
 done
 done
 """
+
+# maybe we have to set progpate sometimes: https://gist.github.com/Daenyth/b57f8522b388e66fcf3b
+
+
+# use verify=False => InsecureRequestWarning: Unverified HTTPS request is being made to host 'blabla.com'. Adding certificate verification is strongly advised
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
